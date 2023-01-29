@@ -7,14 +7,15 @@ const userSchema= new Schema({
         required: true,
         unique: true
     },
+    password: String,
     imageUrl: {
         type: String
     },
-    public_id: String,
-    active: {
-        type: Boolean,
-        default: false
-    }
+    img_public_id: String,
+    // active: {
+    //     type: Boolean,
+    //     default: false
+    // }
 },{
     timestamps: true    // guarda la fecha de cracion y actualizacion del objeto.
 });

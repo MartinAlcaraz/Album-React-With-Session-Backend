@@ -1,14 +1,14 @@
 import { Schema, model } from "mongoose";
 
-const userPicturesSchema = new Schema({
-    userId: Object,
+const PicturesSchema = new Schema({
+    category_id: Object,
     //imgUrl: [{
     //    type: String
     //    data: Buffer  para guardar archivos como imagenes
     //}],
     imagesData: [
         {
-            public_id: {
+            img_public_id: {
                 type: String,
                 requiered: true
             },
@@ -22,6 +22,6 @@ const userPicturesSchema = new Schema({
     timestamps: true    // guarda la fecha de cracion y actualizacion del objeto.
 });
 
-const UserPictures = model('UserPictures', userPicturesSchema);
+const Pictures = model('Pictures', PicturesSchema);
 
-export default UserPictures;
+export default Pictures;
