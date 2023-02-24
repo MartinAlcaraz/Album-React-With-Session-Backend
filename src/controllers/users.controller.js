@@ -1,11 +1,11 @@
 import User from "../models/User.js";
+import Category from '../models/Category.js';
 import fs from 'fs';
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import { serialize } from 'cookie'
-//dotenv.config();
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -114,23 +114,6 @@ usersCtrl.deleteUser = async (req, res) => {
         res.json({ message: "Error. Could not delete user", ok: false })
     }
 }
-
-usersCtrl.setActiveUser = async (req, res) => {
-    try {
-        // se desactiva el unico usuario activo
-        await User.findOneAndUpdate({ active: true }, { active: false });
-
-        // se activa un usuario con el id especificado
-
-        const updated = await User.findByIdAndUpdate(req.params.id, { active: true });
-        if (updated) {
-            res.json({ message: "User updated" })
-        }
-    } catch (err) {
-        res.json({ message: "Could not update user." })
-    }
-}
-
 
 
 export default usersCtrl;

@@ -12,6 +12,7 @@ import routerPictures from './routes/pictures.js';
 import routerUsers from './routes/users.js';
 import routerRegister from './routes/register.js';
 import routerLogin from './routes/login.js'
+import routerCategory from './routes/category.js'
 
 
 if (process.env.NODE_ENV == 'development') {
@@ -73,12 +74,14 @@ const storage = multer.diskStorage({
     }
 });
 
-app.use(multer({ storage }).single('image')); // single() para indicar uploads de a una sola imagen
-// image es el input tipo file del html || La propiedad image del formData o el name del input
+app.use(multer({ storage }).single('image')); 
+// single() para indicar uploads de a una sola imagen
+// 'image' es el input tipo file del html ó la propiedad image del formData o el name del input
 
 
 //routes
-app.use('/api/pictures', routerPictures);
+app.use('/api/pictures',  routerPictures);
+app.use('/api/category', routerCategory);
 app.use('/api/register', routerRegister);
 app.use('/api/users', routerUsers);
 app.use('/api/login', routerLogin);

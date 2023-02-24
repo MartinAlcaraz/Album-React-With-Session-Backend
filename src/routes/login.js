@@ -1,11 +1,12 @@
 import { Router } from "express";
 import loginCtrl from "../controllers/login.controller.js";
 
-const { login, logout } = loginCtrl;
+const { login, logout , isLogged} = loginCtrl;
 const router = Router();
 
 router.route('/')
+    .get(isLogged)
     .post(login)
-    .get(logout);
+    .put(logout);
 
 export default router;

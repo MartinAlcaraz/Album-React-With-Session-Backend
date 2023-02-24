@@ -26,12 +26,18 @@ registerCtrl.register = async (req, res) => {
         const user = await User.findOne({ userName: userName });
         // si no existe un usuario con ese nombre se crea uno
         if (!user) {
+            // se corta la extencion del archivo para que solo quede el nombre
+            let nameImg = image.filename;
+            let i = nameImg.lastIndexOf('.');
+            if(i > 0){
+                nameImg = nameImg.slice(0, i);
+            }
 
             //-- subir la imagen a cloudinary  --//
             let cloudResult = await cloudinary.uploader.upload(
-                image.path,     // direccion de la imagen subida y guardada en /public/uploads por multer
+                image.path,     // direccion de la imagen subida y guardada en /public/uploads por multer                
                 {
-                    public_id: image.filename,
+                    public_id: nameImg,
                     upload_preset: "user_profile_photo"
                 }
             );

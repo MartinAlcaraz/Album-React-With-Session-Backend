@@ -1,4 +1,4 @@
-import UserPictures from '../models/UserPictures.js';
+import Pictures from '../models/Pictures.js';
 import fs from 'fs';
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
@@ -16,7 +16,7 @@ picturesCtrl.getPictures = async (req, res) => {  // busca todas las imagenes de
 
     const userId = await req.params.id;
     try {
-        UserPictures.findOne({ userId: userId })
+        Pictures.findOne({ userId: userId })
             .exec(function (err, result) {
                 if (err) {
                     res.json({ message: "Error in findOne()." })
@@ -59,14 +59,14 @@ picturesCtrl.postPicture = async (req, res) => {
         
 
         // agrega la direccion de la imagen a mongoDB
-        let result = await UserPictures.findOne({ userId: userId });
+        let result = await Pictures.findOne({ userId: userId });
 
         if (result == null) { // se crea un nuevo registro 
 
-            const newUserPicture = new UserPictures(
+            const newPicture = new Pictures(
                 { userId: userId, imagesData: [{ public_id: cloudResult.public_id, imgUrl: cloudResult.secure_url }] }
             );
-            newUserPicture.save(function (err, data) {
+            newPicture.save(function (err, data) {
                 if (err) {
                     res.status(500).send({ updated: false, message: "Error al guardar la imagen" })
                 } else {
@@ -77,7 +77,7 @@ picturesCtrl.postPicture = async (req, res) => {
 
         } else {
             // se actualiza el registro existente con la url de la imagen nueva
-            UserPictures.findOneAndUpdate(
+            Pictures.findOneAndUpdate(
                 { userId: userId },
                 {
                     '$push': {
@@ -106,7 +106,7 @@ picturesCtrl.deleteOnePicture = async (req, res) => {
 
     const public_id = await req.body.img_id;
 
-    const result = await UserPictures.findOne({ userId: userId });
+    const result = await Pictures.findOne({ userId: userId });
 
     // si existe el registro del usuario se busca la imagen que se quiere eliminar
     if (result) {
@@ -117,7 +117,7 @@ picturesCtrl.deleteOnePicture = async (req, res) => {
 
         cloudinary.uploader.destroy(public_id);
 
-        UserPictures.findOneAndUpdate(
+        Pictures.findOneAndUpdate(
             { userId: userId },
             {
                 $pull: {
