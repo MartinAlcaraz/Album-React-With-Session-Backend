@@ -15,7 +15,7 @@ loginCtrl.logout = async (req, res) => {
 
         jwt.verify(myToken, process.env.SECRET) // se verifica si el token es correcto para cerrar la sesion
 
-        const unDia = 86400000;
+        const unDia = 86400000; // un dia en segundos
         const fechaExp = new Date(Date.now() - unDia);
 
         const serializedToken = serialize('myToken', null, {

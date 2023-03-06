@@ -32,7 +32,7 @@ if (process.env.NODE_ENV == 'development') {
     });
 } else {
     // settings
-    app.set('port', PORT || "3000")
+    app.set('port', PORT)
 }
 
 //////////  middleware
@@ -54,6 +54,7 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
     next();
 });
+
 
 // static files
 const __filename = url.fileURLToPath(import.meta.url);  // retorna la direccion del archivo actual \app.js
@@ -80,7 +81,7 @@ app.use(multer({ storage }).single('image'));
 
 
 //routes
-app.use('/api/pictures',  routerPictures);
+app.use('/api/pictures', routerPictures);
 app.use('/api/category', routerCategory);
 app.use('/api/register', routerRegister);
 app.use('/api/users', routerUsers);
