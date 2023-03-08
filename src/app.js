@@ -38,9 +38,10 @@ if (process.env.NODE_ENV == 'development') {
 //////////  middleware
 app.use(cookieParser());
 
-// para limitar la subida de imagenes pesadas
+// para limitar los archivos json
 app.use(bodyParser.json({ limit: "3mb" }));
-app.use(bodyParser.urlencoded({ limit: "3mb" }));
+// para limitar la subida de imagenes pesadas
+app.use(bodyParser.urlencoded({ limit: "6mb" }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());    // para que entienda los objetos json
@@ -61,7 +62,7 @@ const __filename = url.fileURLToPath(import.meta.url);  // retorna la direccion 
 const dir = path.dirname(__filename);
 const __dirname = dir.slice(0, dir.search('\src')) // retorna la direccion de la carpeta .\backend
 
-// hace accesible los archivos de la carpeta ./public que contendrán la pagina del frontend
+// hace accesible los archivos de la carpeta ./public que contendrán la pagina del frontend y la imagenes temporales
 app.use(express.static(path.join(__dirname, "public")));
 
 

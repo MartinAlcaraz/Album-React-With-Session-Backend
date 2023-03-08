@@ -84,6 +84,7 @@ categoryCtrl.getCategories = async (req, res) => {
 
     try {
         const token = jwt.verify(myToken, process.env.SECRET); // se verifica si el token es correcto
+        // console.log('user id: ', token.userId);
 
         const result = await Category.find({ userId: token.userId });
         res.status(201).json({ userCategories: result[0].categories });
