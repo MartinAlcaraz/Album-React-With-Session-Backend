@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
-const URI = process.env.MONGODB_URI || "mongodb://localhost/Album01";
+// const URI = process.env.MONGODB_URI || "mongodb://localhost/Album01";
 // const URI = "mongodb://localhost/Album01";
+const URI = (process.env.NODE_ENV == 'production')? process.env.MONGODB_URI : "mongodb://localhost/Album01";
 
 mongoose.connect(URI, {
     useNewUrlParser: true,

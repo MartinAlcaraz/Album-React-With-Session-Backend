@@ -58,10 +58,13 @@ picturesCtrl.postPicture = async (req, res) => {
             // se borra la imagen guardada en public/uploads/ --> (req.file)
             try {
                 fs.unlinkSync(image.path);
+                console.log('Imagen de /uploads eliminada');
+
             } catch {
                 console.log('no se pudo borrar la imagen de /uploads')
             }
 
+            
 
             // agrega la direccion de la imagen a mongoDB
             let result = await Pictures.findOne({ category_id: category_id });

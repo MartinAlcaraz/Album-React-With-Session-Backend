@@ -36,10 +36,10 @@ const guardarImgEnCloudinary = async (image) => {
         // se borra la imagen guardada en public/uploads/ --> (req.file)
         try {
             fs.unlinkSync(image.path);
+            console.log('Imagen de /uploads eliminada');
         } catch {
             console.log('no se pudo borrar la imagen de /uploads')
         }
-
         return cloudResult;
 
     } catch (error) {
